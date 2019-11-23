@@ -24,6 +24,7 @@ class App extends React.Component {
             // 속성으로 handleRemovePlayer 함수 전달
             <Player name={player.name} id={player.id} key={player.id}
                     score={player.score}
+                    changeScore = {this.handleChangeScore} // () 괄호가 있으면안됨. ()는 함수 호출, 함수 자체를 넘겨야하므로 no ()
                     removePlayer={this.handleRemovePlayer}/>
           ))
         }
@@ -38,6 +39,10 @@ class App extends React.Component {
       const players = prevState.players.filter(player => player.id !== id)
       return { players }
     })
+  }
+
+  handleChangeScore(id, delta){
+    console.log('handleChangeScore:', id, delta)
   }
 }
 
