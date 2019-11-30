@@ -18,7 +18,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="scoreboard">
-        <Header title="My scoreboard" totalPlayers={11} />
+        <Header title="My scoreboard" players={this.state.players} />
         {
           this.state.players.map((player) => (
             // 속성으로 handleRemovePlayer 함수 전달
@@ -41,8 +41,18 @@ class App extends React.Component {
     })
   }
 
-  handleChangeScore(id, delta){
+  handleChangeScore = (id, delta) => {
     console.log('handleChangeScore:', id, delta)
+    this.setState(prevState => {
+      // 새로운 배열을 리턴하라 : deep copy
+      const players = [ ...prevState.players ]; // ... spread 연산자 배열앞에 ... 이 배열 안에 있는 내용물을 가져와서 펼쳐라
+      players.forEach(player => {
+        if(player.id == id){
+          player.score += delta
+        }
+      })
+      return { players }
+    })
   }
 }
 
