@@ -5,7 +5,7 @@ import {Player} from "./components/Player";
 import {AddPlayerForm} from "./components/AddPlayerForm";
 
 
-
+let maxId = 4;
 
 class App extends React.Component {
   state = {
@@ -29,7 +29,7 @@ class App extends React.Component {
                     removePlayer={this.handleRemovePlayer}/>
           ))
         }
-        <AddPlayerForm></AddPlayerForm>
+        <AddPlayerForm addPlayer={this.handleAddPlayer}></AddPlayerForm>
       </div>
     )
   }
@@ -53,6 +53,17 @@ class App extends React.Component {
           player.score += delta
         }
       })
+      return { players }
+    })
+  }
+
+  // 배열은 새배열에 담아서..
+  // [] 새로운 바구니(배열)을 만들어라
+  handleAddPlayer = (name) => {
+    console.log('handleAddPlayer', name);
+    this.setState(prevState => {
+      const players = [ ...prevState.players ]; // deep copy (새로운배열 만들기위해서)
+      players.push({id: ++maxId, name: name, score: 0});
       return { players }
     })
   }
